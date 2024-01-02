@@ -1,0 +1,6 @@
+- yum install httpd-tools
+- Copy h2-1.4 library in /home/datamaker
+- Copy 30_setup_datamaker.cfg in /etc/cloud/cloud.cfg.d
+- Copy setup.sh in /home/datamaker
+- chmod a+x /home/datamaker/setup.sh
+- Modify docs

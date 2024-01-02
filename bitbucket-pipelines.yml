@@ -1,0 +1,202 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.8.4-eclipse-temurin-11
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - maven
+          - node
+          - custom-node
+          - custom-npm
+        script: # Modify the commands below to build your repository.
+            - mvn install # -B batch mode makes Maven less verbose
+  custom:
+    upgrade:
+      - step:
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          name: Upgrade version
+          script:
+            - ssh git@bitbucket.org 'echo "connected to `host` as $USER"'
+            # install deps
+            - git config --global user.email "release@bitbucket.org"
+            - git config --global user.name "Release Pipeline"
+            - mvn -DskipTests --batch-mode release:prepare
+            - mvn -DskipTests --batch-mode release:perform
+    generate-docs:
+      - step:
+          name: Generate documentation
+          script:
+            - apt-get update
+            - apt-get -y install libz-dev build-essential
+            - apt-get -y install ruby-full
+            #- yum install rubygems ruby-devel
+            - cd docs
+            - gem install bundler jekyll
+            - bundle install --gemfile src/main/resources/Gemfile
+            - bundle exec --gemfile src/main/resources/Gemfile jekyll build --source src/main/resources --destination output
+            - git add .
+            - git commit -am"new doc version"
+            - git push
+    build-docker-image:
+      - step:
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          name: Build Docker image
+          script:
+            # install deps
+            - apt-get update && apt-get install -y build-essential
+            - TAG_VERSION=$(git describe --abbrev=0)
+            - git checkout tags/${TAG_VERSION}
+            - mvn clean
+            - mvn install -P docker -DskipTests
+            - MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+            - echo ${MVN_VERSION}
+            - docker build -t datamaker:${MVN_VERSION} service/
+            - docker save datamaker:${MVN_VERSION} > datamaker-docker-${MVN_VERSION}.tar
+            - mvn clean
+            - mvn install -P demo,docker -DskipTests
+            - docker build -t datamaker-demo:${MVN_VERSION} service/
+            - docker save datamaker-demo:${MVN_VERSION} > datamaker-demo-docker-${MVN_VERSION}.tar
+          services:
+            - docker
+          artifacts:
+            - 'datamaker-*docker*.tar'
+      - step:
+          name: Deploy artifacts using SCP to server
+          deployment: Production
+          script:
+            - pipe: atlassian/scp-deploy:0.3.3
+              variables:
+                USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                REMOTE_PATH: '/home/datamaker/downloads/releases'
+                LOCAL_PATH: 'datamaker-docker-*.tar'
+            - pipe: atlassian/scp-deploy:0.3.3
+              variables:
+                USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                REMOTE_PATH: '/home/datamaker/downloads/demo'
+                LOCAL_PATH: 'datamaker-demo-docker-*.tar'
+
+    deploy-demo:
+      - step:
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          name: Build demo
+          script:
+            # install deps
+            - apt-get update && apt-get install -y build-essential
+            #- TAG_VERSION=$(git describe --abbrev=0)
+            #- git checkout TAG_VERSION
+            - mvn clean
+            - mvn install -P demo,release -DskipTests
+          artifacts:
+            - 'deploy/target/*.zip'
+            - 'docs/output/*.*'
+      - step:
+          name: Deploy artifacts using SCP to DEMO
+          deployment: Demo
+          script:
+            - pipe: atlassian/scp-deploy:1.2.1
+              variables:
+                USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                REMOTE_PATH: '/home/datamaker'
+                LOCAL_PATH: 'deploy/target/*.zip'
+            - pipe: atlassian/scp-deploy:1.2.1
+              variables:
+                USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                REMOTE_PATH: '/home/datamaker/docs'
+                LOCAL_PATH: 'docs/output/*'
+                EXTRA_ARGS: ["-r"]
+      - step:
+          name: Run upgrade script
+          script:
+            - pipe: atlassian/ssh-run:0.3.0
+              variables:
+                SSH_USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                COMMAND: '/home/datamaker/upgrade.sh'
+    build-all:
+      - step:
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          name: Build all
+          script:
+            # install deps
+            - apt-get update && apt-get install -y build-essential
+            - TAG_VERSION=$(git describe --abbrev=0)
+            - git checkout tags/${TAG_VERSION}
+            - mvn clean
+            # - MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+            # - echo ${MVN_VERSION}
+            - mvn install -P release -DskipTests
+            - mvn install -P tomcat -DskipTests
+            - mvn install -P azure,release -DskipTests
+            - mvn install -P amazon,release -DskipTests
+          artifacts:
+            - 'deploy/target/*.*'
+      - step:
+          name: Deploy artifacts using SCP to server
+          deployment: Production
+          script:
+            - pipe: atlassian/scp-deploy:0.3.3
+              variables:
+                USER: 'datamaker'
+                SERVER: 'datamaker.ai'
+                REMOTE_PATH: '/home/datamaker/downloads/releases'
+                LOCAL_PATH: 'deploy/target/*.*'
+    deploy-azure:
+      - step:
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          name: Deploy to Azure Dev
+          deployment: Azure
+          script:
+            # install deps
+            - apt-get update && apt-get install -y build-essential
+            - mvn install -P release,azure
+            - pipe: microsoft/azure-web-apps-deploy:1.0.3
+              variables:
+                AZURE_APP_ID: $AZURE_APP_ID
+                AZURE_PASSWORD: $AZURE_PASSWORD
+                AZURE_TENANT_ID: $AZURE_TENANT_ID
+                AZURE_RESOURCE_GROUP: 'breakpoints'
+                AZURE_APP_NAME: 'data-maker-1566068892066'
+                ZIP_FILE: 'deploy/target/datamaker.zip'
+    integration:    
+      - step:
+          #runs-on: self.hosted
+          caches:
+            - maven
+            - node
+            - custom-node
+            - custom-npm
+          script: # Modify the commands below to build your repository.
+            - mvn install -X -DskipITs=false
+definitions:
+  caches:
+    custom-node: frontend/node
+    custom-npm: frontend/node_modules

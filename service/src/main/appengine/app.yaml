@@ -1,0 +1,13 @@
+#runtime: java
+#env: flex
+#runtime_config:
+#  jdk: openjdk11
+#env_variables:
+#  SPRING_PROFILES_ACTIVE: "dev"
+handlers:
+  - url: /.*
+    script: this field is required, but ignored
+manual_scaling:
+  instances: 1
+runtime: java11
+entrypoint: 'java -Dspring.profiles.active=dev -Dconf.path=/tmp/datamaker/ -jar service-1.0.0-SNAPSHOT.jar'

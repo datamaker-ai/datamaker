@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "name": "Datamaker",
+  "description": "",
+  "icons": {
+    "60": "/datamaker/firefox_app_60x60.png",
+    "128": "/datamaker/firefox_app_128x128.png",
+    "512": "/datamaker/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": null,
+    "url": "https://www.datamaker.ai"
+  }
+}

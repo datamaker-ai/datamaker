@@ -1,0 +1,910 @@
+{
+	"info": {
+		"_postman_id": "b1c1e34d-320f-4bb1-99c5-1eface28b033",
+		"name": "Datamaker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Get messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Datasets",
+			"item": [
+				{
+					"name": "Create empty dataset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"account_perso\",\n\t\"languageTag\": \"en-CA\",\n\t\"workspaceId\": \"1f24ffb3-a711-4d71-9d68-ab93ce047e82\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/dataset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"dataset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/dataset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"dataset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get dataset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/dataset/c7ca971a-8241-4a5a-bc79-ebdcfd33da08/fields",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"dataset",
+								"c7ca971a-8241-4a5a-bc79-ebdcfd33da08",
+								"fields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test group permissions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"myAddress\",\"locale\":\"en-CA\",\"fieldType\":\"address\", \"type\":\"STREET_WITH_NUMBER\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/dataset/8739de46-45f3-4421-92f7-c7eced5aa806/field",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"dataset",
+								"8739de46-45f3-4421-92f7-c7eced5aa806",
+								"field"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"roger\",\n\t\"firstName\": \"roger\",\n\t\"lastName\": \"test\",\n\t\"password\": \"changeme\",\n\t\"authority\": \"ROLE_USER\",\n\t\"enabled\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/login?username=admin&password=changeme",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "changeme"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/login?username=admin&password=changeme",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "changeme"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get principal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/user/principal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"user",
+								"principal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Field mappings",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Data Job",
+			"item": [
+				{
+					"name": "Create job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"csv-detention\",\n\t\"workspaceId\": \"\"\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/generate-data-job",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"generate-data-job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add sink",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/generate-data-job/269b98b1-0b66-4e66-872b-aee35a0c490e/sink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"generate-data-job",
+								"269b98b1-0b66-4e66-872b-aee35a0c490e",
+								"sink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dataset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/generate-data-job/269b98b1-0b66-4e66-872b-aee35a0c490e/dataset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"generate-data-job",
+								"269b98b1-0b66-4e66-872b-aee35a0c490e",
+								"dataset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set generator",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update job",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"Csv Detention\",\n            \"numberOfRecords\": 100,\n            \"bufferSize\": 1024\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/generate-data-job/8f56f647-af68-4f4d-bb38-b0796308513c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"generate-data-job",
+								"8f56f647-af68-4f4d-bb38-b0796308513c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Workspace",
+			"item": [
+				{
+					"name": "Create workspace",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"initial\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/workspace",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"workspace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ba1db02-9192-49b9-bed0-f3248d1eb8c4",
+								"exec": [
+									"pm.test(\"Verify list\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.expect(jsonData.payload).to.have.lengthOf(1)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ef6a157e-c2c2-4204-b091-0ebda156c39d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/workspace",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"workspace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all dataset for workspace",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ba1db02-9192-49b9-bed0-f3248d1eb8c4",
+								"exec": [
+									"pm.test(\"Verify list\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.expect(jsonData.payload).to.have.lengthOf(1)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ef6a157e-c2c2-4204-b091-0ebda156c39d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/workspace/fa0e686a-4b1a-4546-9665-7562b004c9d2/datasets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"workspace",
+								"fa0e686a-4b1a-4546-9665-7562b004c9d2",
+								"datasets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test group permissions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search field",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/search?query=stri",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "stri"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Fields",
+			"item": [
+				{
+					"name": "Create field",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "changeme",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"full name\",\n\t\"languageTag\": \"en-US\",\n\t\"datasetId\": \"c7ca971a-8241-4a5a-bc79-ebdcfd33da08\",\n\t\"className\": \"ca.breakpoints.datamaker.model.field.type.NameField\",\n\t\"config\": {\"test1\": true, \"test2\": \"string1\", \"test3\": 432, \"test4\": 31.990}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/field",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"field"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get field",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "changeme",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/field/d90c3cac-1ecc-4d65-a3a5-62f8268949cd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"field",
+								"d90c3cac-1ecc-4d65-a3a5-62f8268949cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Formatter",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Job Execution",
+			"item": [
+				{
+					"name": "Execute job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/job-execution/8f56f647-af68-4f4d-bb38-b0796308513c/run",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"job-execution",
+								"8f56f647-af68-4f4d-bb38-b0796308513c",
+								"run"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/job-execution/8f56f647-af68-4f4d-bb38-b0796308513c/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"job-execution",
+								"8f56f647-af68-4f4d-bb38-b0796308513c",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get next job run",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/datamaker/api/job-execution/8f56f647-af68-4f4d-bb38-b0796308513c/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"datamaker",
+								"api",
+								"job-execution",
+								"8f56f647-af68-4f4d-bb38-b0796308513c",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

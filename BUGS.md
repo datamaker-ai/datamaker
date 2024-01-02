@@ -1,0 +1,30 @@
+- [ ] Review flush vs use buffers
+    - [ ] Buffered stream and SQL sink: doesn't make senses
+- [ ] Google PUBSUB async, close reject task
+- [ ] Review sink format type
+- [ ] Generate data job validations (tabs)
+- [ ] StringField: better support for ascii only and alphanumeric
+- [ ] Filter API path for swagger UI
+    - Add documentation (annotation)
+- [ ] Test extra classpath (loader)
+- [ ] Review sidebar icons
+- [ ] Persist language in cookie or local storage
+- [ ] Change temp folder in war deployment
+- [ ] Review all path deployment (temp, conf, logs...)
+- [x] Configure logback/slf4j
+- [ ] New page to manager user/group association or find a way that password is optional if adding new group
+- [ ] How to customize FormatType, SupportedType
+- [ ] Support SSO (SAML)
+- [ ] External user should not be able to change password
+- [ ] Show useful information for data integrity exception
+- [ ] Hide edit/delete button if not authorized
+- [ ] Localized config properties, errors, components, validation...
+- [ ] Expression language failed if not string
+- [ ] Use language defined in user settings
+- [ ] Clean-up Swagger documentation (enrich annotations)
+- [ ] Validate empty reference fields (array, reference, map)
+- [x] Rubygems with Maven is unstable
+- [x] Use logback
+- [ ] Broken Cognito (+ only support HTTPS)
+- [x] Broken Azure oauth
+- [x] Generic oauth

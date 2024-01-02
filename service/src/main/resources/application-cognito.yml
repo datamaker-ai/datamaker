@@ -1,0 +1,15 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            clientId: 3t3oie39upnq2e37k3ekj8blu2
+            clientSecret: q99165e942cunpt76u9b7fe4m3c33r09b4lnhom9cdbv63t6243
+            scope: openid
+            redirect-uri: http://localhost:8080/datamaker/login/oauth2/code/cognito
+            clientName: datamaker-client
+        provider:
+          cognito:
+            issuerUri: https://cognito-idp.ca-central-1.amazonaws.com/ca-central-1_zlOxEgek0
+            user-name-attribute: cognito:username

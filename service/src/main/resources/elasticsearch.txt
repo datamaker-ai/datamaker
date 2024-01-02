@@ -1,0 +1,8 @@
+elastic
+x9YGmR5xzCx75IngiptLBpJn
+
+cloud id: datamaker:bm9ydGhhbWVyaWNhLW5vcnRoZWFzdDEuZ2NwLmVsYXN0aWMtY2xvdWQuY29tJDJjNTE0YTA2YTliMjQwYWFhYjEwNDk0NjEzNmY4NDEzJDk5MzJiODU1MGExNDQ5Y2FiMWM2MDY3ODhmNDZhMGJk
+
+https://2c514a06a9b240aaab104946136f8413.northamerica-northeast1.gcp.elastic-cloud.com:9243
+
+https://9932b8550a1449cab1c606788f46a0bd.northamerica-northeast1.gcp.elastic-cloud.com:9243

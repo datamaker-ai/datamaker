@@ -1,0 +1,6 @@
+- How to enable SSL 
+- Authentication
+- Setup external Database (Postgres or MariaDB)
+- Configure as a service
+- Debian, RHEL packages...
+- Configure license 

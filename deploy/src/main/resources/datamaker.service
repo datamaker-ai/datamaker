@@ -1,0 +1,12 @@
+[Unit]
+Description=Datamaker service
+After=syslog.target
+
+[Service]
+User=datamaker
+ExecStart=/opt/datamaker/service.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+
